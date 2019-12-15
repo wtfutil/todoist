@@ -10,7 +10,7 @@ import (
 
 // Task is a model of todoist project entity
 type Task struct {
-	ID           int    `json:"id"`
+	ID           uint   `json:"id"`
 	CommentCount int    `json:"comment_count"`
 	Completed    bool   `json:"completed"`
 	Content      string `json:"content"`
@@ -24,10 +24,10 @@ type Task struct {
 
 // Due is a model of todoist project entity
 type Due struct {
-	String   string     `json:"string"`
-	Date     string     `json:"date"`
-	Datetime time.Time  `json:"datetime,omitempty"`
-	Timezone string     `json:"timezone"`
+	String   string    `json:"string"`
+	Date     string    `json:"date"`
+	Datetime time.Time `json:"datetime,omitempty"`
+	Timezone string    `json:"timezone"`
 }
 
 func (t Task) taskSave() taskSave {
