@@ -94,7 +94,7 @@ func ListTask(qp QueryParam) ([]Task, error) {
 }
 
 // GetTask return a task by id
-func GetTask(id int) (Task, error) {
+func GetTask(id uint) (Task, error) {
 	path := fmt.Sprintf("tasks/%d", id)
 	res, err := makeRequest(http.MethodGet, path, nil)
 	if err != nil {

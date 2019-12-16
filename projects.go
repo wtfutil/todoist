@@ -62,7 +62,7 @@ func ListProject() ([]Project, error) {
 //			panic(err)
 //		}
 //		fmt.Println(project)
-func GetProject(id string) (Project, error) {
+func GetProject(id uint) (Project, error) {
 	path := fmt.Sprintf("projects/%d", id)
 	res, err := makeRequest(http.MethodGet, path, nil)
 	if err != nil {
