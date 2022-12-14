@@ -11,7 +11,7 @@ import (
 
 // Token save the personal token from todoist
 var Token string
-var todoistURL = "https://api.todoist.com/rest/v1/"
+var todoistURL = "https://api.todoist.com/rest/v2/"
 
 func makeRequest(method, endpoint string, data interface{}) (*http.Response, error) {
 	url := todoistURL + endpoint
@@ -57,7 +57,7 @@ func makeRequest(method, endpoint string, data interface{}) (*http.Response, err
 
 type taskSave struct {
 	Content     string     `json:"content"`
-	ProjectID   int        `json:"project_id,omitempty"`
+	ProjectID   string     `json:"project_id,omitempty"`
 	Order       int        `json:"order,omitempty"`
 	LabelIDs    []int      `json:"label_ids,omitempty"`
 	Priority    int        `json:"priority,omitempty"`
@@ -74,8 +74,8 @@ func (ts taskSave) MarshalJSON() ([]byte, error) {
 	}
 	buffer.WriteString(fmt.Sprintf("\"content\":\"%s\"", ts.Content))
 
-	if ts.ProjectID != 0 {
-		buffer.WriteString(fmt.Sprintf(",\"project_id\":%d", ts.ProjectID))
+	if ts.ProjectID != "" {
+		buffer.WriteString(fmt.Sprintf(",\"project_id\":%s", ts.ProjectID))
 	}
 
 	if ts.Order != 0 {

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	httpmock "gopkg.in/jarcoal/httpmock.v1"
+  "github.com/jarcoal/httpmock"
 )
 
 func TestProject(t *testing.T) {
@@ -23,7 +23,7 @@ func TestProject(t *testing.T) {
 				return httpmock.NewStringResponse(400, ""), nil
 			}
 			project := Project{
-				ID:   1,
+				ID:   "1",
 				Name: body.Name,
 			}
 			listProjects = append(listProjects, project)
@@ -70,7 +70,7 @@ func TestProject(t *testing.T) {
 		t.Errorf("Expected len(projects) != '%d'", len(projects))
 	}
 
-	project, err = GetProject(1)
+	project, err = GetProject("1")
 	if err != nil {
 		t.Error(err)
 	}
