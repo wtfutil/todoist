@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"testing"
 	"time"
-	httpmock "gopkg.in/jarcoal/httpmock.v1"
+  "github.com/jarcoal/httpmock"
 )
 
 func TestMakeRequest(t *testing.T) {
@@ -72,7 +72,7 @@ func TestTaskSaveMarshalJSON(t *testing.T) {
 		t.Errorf("Expected '{\"content\":\"test\"}' != '%s'", string(b))
 	}
 
-	ts = taskSave{Content: "test", ProjectID: 1}
+	ts = taskSave{Content: "test", ProjectID: "1"}
 	b, _ = ts.MarshalJSON()
 	if string(b) != "{\"content\":\"test\",\"project_id\":1}" {
 		t.Errorf("Expected '{\"content\":\"test\",\"project_id\":1}' != '%s'", string(b))

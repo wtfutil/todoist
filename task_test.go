@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	httpmock "gopkg.in/jarcoal/httpmock.v1"
+  "github.com/jarcoal/httpmock"
 )
 
 func TestQueryParam(t *testing.T) {
@@ -24,7 +24,7 @@ func TestQueryParam(t *testing.T) {
 		"param2": "param2",
 	}
 	if qp.String() != "?param1=param1&param2=param2" {
-		t.Errorf("Expected '?param1=param1' != '%s'", qp)
+		t.Errorf("Expected '?param1=param1&param2=param2' != '%s'", qp)
 	}
 }
 
@@ -42,7 +42,7 @@ func TestTask(t *testing.T) {
 				return httpmock.NewStringResponse(400, ""), nil
 			}
 			task := Task{
-				ID:        1,
+				ID:        "1",
 				Content:   body.Content,
 				ProjectID: body.ProjectID,
 				Order:     body.Order,
@@ -71,7 +71,7 @@ func TestTask(t *testing.T) {
 				return httpmock.NewStringResponse(400, ""), nil
 			}
 			task := Task{
-				ID:        1,
+				ID:        "1",
 				Content:   body.Content,
 				ProjectID: body.ProjectID,
 				Order:     body.Order,
@@ -124,7 +124,7 @@ func TestTask(t *testing.T) {
 		t.Error(err)
 	}
 
-	task, err = GetTask(1)
+	task, err = GetTask("1")
 	if err != nil {
 		t.Error(err)
 	}
@@ -163,7 +163,7 @@ func TestTask(t *testing.T) {
 
 
 func TestDecodeTask(t *testing.T) {
-	taskData := `{"id": 3408210133,"project_id": 2217869113,"order": 3,"content": "Therapy","completed": false,"label_ids": [],"priority": 1,"comment_count": 0,"created": "2019-09-21T06:06:08Z","due": {"recurring": true,"string": "every monday at 10pm","date": "2019-10-07","datetime": "2019-10-07T14:00:00Z","timezone": "Asia/Kuala_Lumpur"}}`
+	taskData := `{"id": "3408210133","project_id": "2217869113","order": 3,"content": "Therapy","completed": false,"label_ids": [],"priority": 1,"comment_count": 0,"created": "2019-09-21T06:06:08Z","due": {"recurring": true,"string": "every monday at 10pm","date": "2019-10-07","datetime": "2019-10-07T14:00:00Z","timezone": "Asia/Kuala_Lumpur"}}`
 	bytes := []byte(taskData)
 	var task Task
 	err := json.Unmarshal(bytes, &task)
