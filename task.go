@@ -10,7 +10,7 @@ import (
 
 // Task is a model of todoist project entity
 type Task struct {
-	ID           uint   `json:"id"`
+	ID           string `json:"id"`
 	CommentCount int    `json:"comment_count"`
 	Completed    bool   `json:"completed"`
 	Content      string `json:"content"`
@@ -18,7 +18,7 @@ type Task struct {
 	LabelIDs     []int  `json:"label_ids"`
 	Order        int    `json:"order"`
 	Priority     int    `json:"priority"`
-	ProjectID    int    `json:"project_id"`
+	ProjectID    string `json:"project_id"`
 	Due          Due    `json:"due"`
 }
 
@@ -94,8 +94,8 @@ func ListTask(qp QueryParam) ([]Task, error) {
 }
 
 // GetTask return a task by id
-func GetTask(id uint) (Task, error) {
-	path := fmt.Sprintf("tasks/%d", id)
+func GetTask(id string) (Task, error) {
+	path := fmt.Sprintf("tasks/%s", id)
 	res, err := makeRequest(http.MethodGet, path, nil)
 	if err != nil {
 		return Task{}, err
@@ -116,7 +116,7 @@ func CreateTask(task Task) (Task, error) {
 
 // Delete remove a task
 func (t Task) Delete() error {
-	path := fmt.Sprintf("tasks/%d", t.ID)
+	path := fmt.Sprintf("tasks/%s", t.ID)
 	_, err := makeRequest(http.MethodDelete, path, nil)
 	if err != nil {
 		return err
@@ -127,7 +127,7 @@ func (t Task) Delete() error {
 
 // Update a task
 func (t Task) Update() error {
-	path := fmt.Sprintf("tasks/%d", t.ID)
+	path := fmt.Sprintf("tasks/%s", t.ID)
 	_, err := makeRequest(http.MethodPost, path, t.taskSave())
 	if err != nil {
 		return err
@@ -138,7 +138,7 @@ func (t Task) Update() error {
 
 // Close mask task as done
 func (t Task) Close() error {
-	path := fmt.Sprintf("tasks/%d/close", t.ID)
+	path := fmt.Sprintf("tasks/%s/close", t.ID)
 	_, err := makeRequest(http.MethodPost, path, nil)
 	if err != nil {
 		return err
@@ -149,7 +149,7 @@ func (t Task) Close() error {
 
 // Reopen a task
 func (t Task) Reopen() error {
-	path := fmt.Sprintf("tasks/%d/reopen", t.ID)
+	path := fmt.Sprintf("tasks/%s/reopen", t.ID)
 	_, err := makeRequest(http.MethodPost, path, nil)
 	if err != nil {
 		return err
